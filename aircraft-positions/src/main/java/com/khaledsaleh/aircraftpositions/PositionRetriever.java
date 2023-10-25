@@ -14,6 +14,7 @@ public class PositionRetriever {
         repository.deleteAll();
 
         client.get()
+                .uri("/aircraft")
                 .retrieve()
                 .bodyToFlux(Aircraft.class)
                 .filter(plane -> !plane.getReg().isEmpty())
