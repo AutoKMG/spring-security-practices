@@ -10,11 +10,11 @@ public class PositionRetriever {
     private final AircraftRepository repository;
     private final WebClient client;
 
-    Iterable<Aircraft> retrieveAircraftPositions(){
+    Iterable<Aircraft> retrieveAircraftPositions(String endpoint){
         repository.deleteAll();
 
         client.get()
-                .uri("/aircraft")
+                .uri((null != endpoint) ? endpoint : "")
                 .retrieve()
                 .bodyToFlux(Aircraft.class)
                 .filter(plane -> !plane.getReg().isEmpty())
